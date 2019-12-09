@@ -4,12 +4,16 @@ This repo helps to build and run the Linux kernel and busybox for the user land.
 The scripts incorporate knowledge needed to facilitate ramping up on the Linux kernel 
 debugging.
 
+Also there is an example of building an out-of-tree kernel module [LookSee](./lookseemod/looksee.c)
+
 Eye candy:
 1. Debugging Linux kernel
 ![Debugging Linux kernel](./notes/debug-graphic.png "Debugging Linux kernel")
 
 2. Serial console, inspecting Local APIC for CPU 0 with QEMU
 ![Serial console](./notes/qemu-monitor-lapic.png "Serial console")
+
+3. [What exactly happens inside the kernel when you divide by zero in your user-mode code](./notes/div-by-zero.md)
 
 To clone:
 ```

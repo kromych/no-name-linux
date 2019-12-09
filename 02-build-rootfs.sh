@@ -6,18 +6,17 @@
 
 GRUB_CFG=${PWD}/grub.cfg
 ROOTFS=${PWD}/rootfs
-BUSYBOX_SRC=~/src/busybox-1.29.3
+BUSYBOX_SRC=${PWD}/busybox
 BUSYBOX_CONFIG=${PWD}/busybox.config
 
-KERNEL=~/build/linux/arch/x86_64/boot/bzImage
+KERNEL=${PWD}/build/linux/arch/x86_64/boot/bzImage
+
+export KBUILD_OUTPUT=${PWD}/build/busybox
 
 cd $BUSYBOX_SRC
-
 make mrproper
 
-export KBUILD_OUTPUT=~/build/busybox
-
-rm -r $KBUILD_OUTPUT
+rm -rf $KBUILD_OUTPUT
 mkdir -p $KBUILD_OUTPUT
 
 make defconfig

@@ -2,3 +2,4 @@ mnt*
 rootfs*
 *.img
 *.bz2
+build

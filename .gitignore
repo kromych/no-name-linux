@@ -1,0 +1,4 @@
+mnt*
+rootfs*
+*.img
+*.bz2

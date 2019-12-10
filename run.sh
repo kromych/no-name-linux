@@ -11,7 +11,7 @@ SERIAL_KERN_OPTIONS="ro console=ttyAMA0 root=/dev/vda init=/sbin/init noinitrd n
 SERIAL_OUTPUT="-nographic -serial mon:stdio -kernel ./build/linux/arch/arm64/boot/Image"
 
 DEBUG=""
-KERN_OPTIONS="SERIAL_KERN_OPTIONS"
+KERN_OPTIONS="${SERIAL_KERN_OPTIONS}"
 OUTPUT=${SERIAL_OUTPUT}
 
 for argval in "$@"
@@ -35,5 +35,4 @@ qemu-system-aarch64 \
     -machine virt \
     -smp 1 \
     -m 1G \
-    -drive if=none,file=${PWD}/no-name-linux-arm64.img,format=raw,id=hd \
-    -device virtio-blk-pci,drive=hd
+    -hda ${PWD}/no-name-linux-arm64.img

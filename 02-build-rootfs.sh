@@ -4,14 +4,13 @@
 # 2.1. BUILD BUSYBOX
 ######################################################
 
-GRUB_CFG=${PWD}/grub.cfg
-ROOTFS=${PWD}/rootfs
+ROOTFS=${PWD}/rootfs-arm64
 BUSYBOX_SRC=${PWD}/busybox
 BUSYBOX_CONFIG=${PWD}/busybox.config
 
-KERNEL=${PWD}/build/linux/arch/x86_64/boot/bzImage
+KERNEL=${PWD}/build/linux/arch/arm64/boot/Image
 
-export KBUILD_OUTPUT=${PWD}/build/busybox
+export KBUILD_OUTPUT=${PWD}/build/busybox-arm64
 
 cd $BUSYBOX_SRC
 make mrproper
@@ -19,20 +18,18 @@ make mrproper
 rm -rf $KBUILD_OUTPUT
 mkdir -p $KBUILD_OUTPUT
 
-make defconfig
+ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- make defconfig
 
 cp $BUSYBOX_CONFIG $KBUILD_OUTPUT/.config
 
-make -j 16
-make install
+ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- make -j 16
+ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- make install
 
 #####################################################
 # 2.2. GENERATE ROOT FILESYSTEM
 ####################################################
 
 cd $KBUILD_OUTPUT/_install
-
-mkdir -p boot/grub
 
 mkdir dev
 mkdir etc
@@ -44,23 +41,7 @@ mkdir tmp
 mkdir -p var/run
 chmod 1777 tmp
 
-cp ${GRUB_CFG} ./boot/grub
 cp ${KERNEL} .
-
-# cat > init.c << EOF
-# 
-# int _start()
-# {
-#     for(;;)
-#     {
-#         asm volatile("pause");
-#     }
-# 
-#     return 0;
-# }
-# 
-# EOF
-#gcc -o init -ffreestanding -nostdlib -nostdinc -no-pie init.c 
 
 cat > etc/bootscript.sh << EOF
 #!/bin/sh

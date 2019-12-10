@@ -16,7 +16,7 @@ make mrproper
 rm -rf $KBUILD_OUTPUT
 mkdir -p $KBUILD_OUTPUT
 
-make defconfig
+ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- make defconfig
 
 cat > $CONFIG_FRAGMENT << EOF 
 CONFIG_DEFAULT_HOSTNAME="no-name"
@@ -40,4 +40,4 @@ EOF
 
 echo "Building kernel..."
 
-make -j 16
+ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- make -j 16

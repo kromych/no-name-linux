@@ -9,6 +9,10 @@ Also there is an example of building an out-of-tree kernel module [LookSee](./lo
 > For `arm64`, please switch to the `arm64` branch.
 > I'll merge it into `master` when I have time.
 
+> For Hyper-V, please switch to the hyper-v branch.
+> I'll merge it into `master` when I have time.
+
+
 Eye candy:
 1. Debugging Linux kernel
 ![Debugging Linux kernel](./notes/debug-graphic.png "Debugging Linux kernel")
@@ -21,36 +25,34 @@ Eye candy:
 
 4. [What exactly happens inside the kernel when you divide by zero in your user-mode code](./notes/div-by-zero.md)
 
+5. Linux Kernel debugging under Hyper-V 
+![Linux Kernel debugging under Hyper-V](./notes/hyper-v-kdbg.png)
+
 To clone:
 ```
 	git clone --recursive https://github.com/kromych/no-name-linux.git
 ```
-To build the kernel:
-```
-	./01-build-kernel.sh
-```
-To build the root filesystem:
-```
-	./02-build-rootfs.sh 
-```
-To build the bootable image (you can also use it to boot a PC)
-```
-	./03-mkimg-losetup.sh
-```
-
-To run:
-```
-	./run.sh
-```
 
 To debug:
-```
-	./run.sh waitdebug
-```
-and run `./attach-gdb.sh` in another console window/tab.
 
-To supress graphic output, and run in the text mode:
+1. Build the root fs
+2. Build the kernel
+3. Create a VHDX virtual disk using the helper function in the powershell script
+4. Create a Hyper-V Gen 2 VM with security boot disabled.
+5. Add 2 serial ports to the VM:
 ```
-	./run.sh serial
+Set-VmComPort -Pipe \\.\pipe\Com1 -Number 1 -DebuggerMode Off
+Set-VmComPort -Pipe \\.\pipe\Com2 -Number 2 -DebuggerMode Off    
 ```
-In this case, you'll need to use `Ctrl+A` followed by `C` to QEMU's monitor.
+6. Use ![npiperelay](https://github.com/jstarks/npiperelay) to setup kernel debugging relay
+```
+serial-relay //./pipe/Com2 kgdb &
+```
+7. Inside gdb,
+```
+target remote /dev/pts/3
+```
+8. Inside the Linux shell,
+```
+echo g > /proc/sysrq-trigger
+```

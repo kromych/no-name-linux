@@ -7,3 +7,6 @@
 [submodule "nc-vsock"]
 	path = nc-vsock
 	url = https://github.com/stefanha/nc-vsock.git
+[submodule "socat"]
+	path = socat
+	url = git://repo.or.cz/socat.git

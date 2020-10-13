@@ -366,7 +366,7 @@ CONFIG_HOTPLUG_CPU=y
 # CONFIG_LEGACY_VSYSCALL_XONLY is not set
 CONFIG_LEGACY_VSYSCALL_NONE=y
 CONFIG_CMDLINE_BOOL=y
-CONFIG_CMDLINE="rw console=ttyS0,115200n8 console=ttyS1,115200n8 kgdboc=ttyS1,115200n8 initcall_debug nokaslr cryptomgr.notests no_timer_check tsc=reliable oops=panic panic_on_warn=0 panic=0 ftrace_dump_on_oops=orig_cpu printk.devkmsg=on"
+CONFIG_CMDLINE="rw mem=64M console=ttyS0,115200n8 console=ttyS1,115200n8 kgdboc=ttyS1,115200n8 initcall_debug nokaslr cryptomgr.notests no_timer_check tsc=reliable oops=panic panic_on_warn=0 panic=0 ftrace_dump_on_oops=orig_cpu printk.devkmsg=on"
 CONFIG_CMDLINE_OVERRIDE=y
 CONFIG_MODIFY_LDT_SYSCALL=y
 CONFIG_HAVE_LIVEPATCH=y
@@ -716,7 +716,11 @@ CONFIG_UNIX_SCM=y
 # CONFIG_NET_SCHED is not set
 # CONFIG_DCB is not set
 # CONFIG_BATMAN_ADV is not set
-# CONFIG_VSOCKETS is not set
+CONFIG_VSOCKETS=y
+# CONFIG_VSOCKETS_DIAG is not set
+CONFIG_VSOCKETS_LOOPBACK=y
+CONFIG_VIRTIO_VSOCKETS_COMMON=y
+CONFIG_HYPERV_VSOCKETS=y
 # CONFIG_NETLINK_DIAG is not set
 # CONFIG_MPLS is not set
 # CONFIG_NET_NSH is not set
@@ -1527,8 +1531,12 @@ CONFIG_PROC_PAGE_MONITOR=y
 CONFIG_PROC_PID_ARCH_STATUS=y
 CONFIG_KERNFS=y
 CONFIG_SYSFS=y
-# CONFIG_TMPFS is not set
-# CONFIG_HUGETLBFS is not set
+CONFIG_TMPFS=y
+# CONFIG_TMPFS_POSIX_ACL is not set
+# CONFIG_TMPFS_XATTR is not set
+CONFIG_HUGETLBFS=y
+CONFIG_HUGETLB_PAGE=y
+CONFIG_MEMFD_CREATE=y
 CONFIG_ARCH_HAS_GIGANTIC_PAGE=y
 CONFIG_CONFIGFS_FS=y
 CONFIG_EFIVAR_FS=y

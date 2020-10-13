@@ -38,6 +38,7 @@ cat > etc/sysinit.sh << EOF
 
 # Mount essentials
 mount -t devtmpfs none /dev
+mount -t devpts devpts /dev/pts
 mount -t proc none /proc
 mount -t sysfs none /sys
 
@@ -88,9 +89,31 @@ sudo mknod dev/ttyS2     c 4 66
 sudo mknod dev/ttyS3     c 4 67
 sudo mknod dev/tty       c 5  0
 sudo mknod dev/console   c 5  1
-sudo mknod dev/ptmx      c 5  2
 sudo mknod dev/ttyprintk c 5  3
 sudo mknod dev/loop0     b 7  0
 sudo mknod dev/loop1     b 7  1
+
+mkdir dev/pts
+
+sudo mknod dev/pts/ptmx c   5 2
+sudo mknod dev/pts/0    c 136 0
+sudo mknod dev/pts/1    c 136 1
+sudo mknod dev/pts/2    c 136 2
+sudo mknod dev/pts/3    c 136 3
+sudo mknod dev/pts/4    c 136 4
+sudo mknod dev/pts/5    c 136 5
+sudo mknod dev/pts/6    c 136 6
+sudo mknod dev/pts/7    c 136 7
+sudo mknod dev/pts/8    c 136 8
+
+#####################################################
+# 2.3. ADD FILES TO /BIN
+####################################################
+
+cp ${BUILD_DIR}/bin/* bin/
+
+#####################################################
+# 2.4. GENERATE INIT RAM FS
+####################################################
 
 find . | cpio -o -H newc | gzip > ${INITRAMFS}

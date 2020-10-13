@@ -4,3 +4,9 @@
 [submodule "busybox"]
 	path = busybox
 	url = https://github.com/mirror/busybox.git
+[submodule "socat"]
+	path = socat
+	url = git://repo.or.cz/socat.git
+[submodule "nc-vsock"]
+	path = nc-vsock
+	url = https://github.com/stefanha/nc-vsock.git

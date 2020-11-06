@@ -4,10 +4,11 @@
 # 2.1. BUILD BUSYBOX
 ######################################################
 
-GRUB_CFG=${PWD}/grub.cfg
+GRUB_CFG=${PWD}/configs/grub.cfg
 ROOTFS=${PWD}/rootfs
+DROPBEAR_BUILD=${PWD}/build/dropbear
 BUSYBOX_SRC=${PWD}/busybox
-BUSYBOX_CONFIG=${PWD}/busybox.config
+BUSYBOX_CONFIG=${PWD}/configs/busybox.config
 
 KERNEL=${PWD}/build/linux/arch/x86_64/boot/bzImage
 
@@ -17,14 +18,14 @@ cd $BUSYBOX_SRC
 make mrproper
 
 rm -rf $KBUILD_OUTPUT
-mkdir -p $KBUILD_OUTPUT
+mkdir -p $KBUILD_OUTPUT/_install
 
 make defconfig
 
 cp $BUSYBOX_CONFIG $KBUILD_OUTPUT/.config
 
-make -j 16
-make install
+make -j `nproc`
+make -j `nproc` install
 
 #####################################################
 # 2.2. GENERATE ROOT FILESYSTEM
@@ -69,6 +70,7 @@ dmesg -n 1
 mount -t devtmpfs none /dev
 mount -t proc none /proc
 mount -t sysfs none /sys
+mount -o remount,rw /dev/root
 ip link set lo up
 ip link set eth0 up
 udhcpc -b -i eth0 -s /etc/rc.dhcp
@@ -103,9 +105,29 @@ tty4::once:cat /etc/welcome.txt
 tty4::respawn:/bin/sh
 EOF
 
+cat > etc/group << EOF
+root:!:0:root
+EOF
+
+cat > etc/passwd << EOF
+root::0:0::/root:/bin/sh
+EOF
+
 # Copy to the target dir
 
 rm -rf ${ROOTFS}
 mkdir ${ROOTFS}
 
 cp -r ./* ${ROOTFS}
+
+cp $DROPBEAR_BUILD/dropbear ${ROOTFS}/bin
+cp $DROPBEAR_BUILD/dbclient ${ROOTFS}/bin
+cp $DROPBEAR_BUILD/dropbearkey ${ROOTFS}/bin
+cp $DROPBEAR_BUILD/dropbearconvert ${ROOTFS}/bin
+cp $DROPBEAR_BUILD/scp ${ROOTFS}/bin
+
+strip ${ROOTFS}/bin/dropbear
+strip ${ROOTFS}/bin/dbclient
+strip ${ROOTFS}/bin/dropbearkey
+strip ${ROOTFS}/bin/dropbearconvert
+strip ${ROOTFS}/bin/scp

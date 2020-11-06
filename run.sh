@@ -5,7 +5,7 @@
 WAIT_DEBUG="-S -s"
 
 GTK_OUTPUT="-vga std -display gtk"
-SERIAL_KERN_OPTIONS="ro console=ttyS0 root=/dev/sda1 init=/sbin/init noinitrd nokaslr vt.handoff=1 oops=panic panic_on_warn=1 panic=-1 ftrace_dump_on_oops=orig_cpu debug earlyprintk=serial slub_debug=UZ"
+SERIAL_KERN_OPTIONS="console=ttyS0 root=/dev/sda1 init=/sbin/init noinitrd nokaslr vt.handoff=1 oops=panic panic_on_warn=1 panic=-1 ftrace_dump_on_oops=orig_cpu debug earlyprintk=serial slub_debug=UZ"
 SERIAL_OUTPUT="-nographic -serial mon:stdio -kernel ./build/linux/arch/x86/boot/bzImage"
 
 DEBUG=""

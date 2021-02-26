@@ -131,3 +131,7 @@ strip ${ROOTFS}/bin/dbclient
 strip ${ROOTFS}/bin/dropbearkey
 strip ${ROOTFS}/bin/dropbearconvert
 strip ${ROOTFS}/bin/scp
+
+cd ${ROOTFS}
+
+find . | cpio -o -H newc | gzip > $KBUILD_OUTPUT/../initramfs.cpio.gzip

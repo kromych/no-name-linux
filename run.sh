@@ -32,6 +32,6 @@ qemu-system-x86_64 \
     -enable-kvm \
     -cpu host \
     -machine type=q35,accel=kvm \
-    -smp 8 \
+    -smp 4 \
     -m 1G \
     -hda no-name-linux.img 

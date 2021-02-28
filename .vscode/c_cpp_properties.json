@@ -4,7 +4,14 @@
             "name": "Linux",
             "cStandard": "c11",
             "intelliSenseMode": "gcc-x64",
-            "compileCommands": "${workspaceFolder}/compile_commands.json"
+            "compileCommands": "${workspaceFolder}/compile_commands.json",
+            "includePath": [
+                "${workspaceFolder}/build/linux/arch/x86/include/generated",
+                "${workspaceFolder}/build/include",
+                "${workspaceFolder}/build/linux/include",
+                "${workspaceFolder}/linux/include",
+                "${workspaceFolder}/linux/arch/x86/include"
+            ]
         }
     ],
     "version": 4

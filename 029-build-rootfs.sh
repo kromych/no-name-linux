@@ -134,4 +134,4 @@ strip ${ROOTFS}/bin/scp
 
 cd ${ROOTFS}
 
-find . | cpio -o -H newc | gzip > $KBUILD_OUTPUT/../initramfs.cpio.gzip
+find . | cpio -o -H newc | gzip > $KBUILD_OUTPUT/../initramfs.cpio.gz

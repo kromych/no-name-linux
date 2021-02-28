@@ -6,7 +6,7 @@
     {
       "label": "vm",
       "type": "shell",
-      "command": "${workspaceRoot}/run.sh serial waitdebug",
+      "command": "${workspaceRoot}/run.sh serial",
       "presentation": {
         "echo": false,
         "clear": true,

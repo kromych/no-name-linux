@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 from __future__ import print_function, division
 
 import fnmatch
@@ -12,7 +13,7 @@ import sys
 CMD_VAR_RE = re.compile(r'^\s*cmd_(\S+)\s*:=\s*(.+)\s*$', re.MULTILINE)
 SOURCE_VAR_RE = re.compile(r'^\s*source_(\S+)\s*:=\s*(.+)\s*$', re.MULTILINE)
 
-directory = os.path.abspath(os.getcwd())
+directory = os.path.join(os.path.abspath(os.getcwd()), 'build/linux')
 
 
 def print_progress_bar(progress):
@@ -66,7 +67,7 @@ def main():
 
     print(file=sys.stderr)
     print("Writing compile_commands.json...", file=sys.stderr)
-    with open('compile_commands.json', 'w') as compdb_file:
+    with open(os.path.join('.vscode', 'compile_commands.json'), 'w') as compdb_file:
         json.dump(compdb, compdb_file, indent=1)
 
 

@@ -35,7 +35,11 @@
         {
           "text": "-enable-pretty-printing",
           "ignoreFailures": true
-        }
+        },
+        {
+          "text": "b start_kernel",
+          "ignoreFailures": true
+        }        
       ]
     }
   ]

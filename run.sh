@@ -6,7 +6,8 @@ WAIT_DEBUG="-S"
 
 GTK_OUTPUT="-vga std -display gtk"
 SERIAL_KERN_OPTIONS="earlyprintk=serial slub_debug=UZ"
-SERIAL_OUTPUT="-nographic -serial mon:stdio -kernel ./build/linux/arch/x86/boot/bzImage"
+#SERIAL_OUTPUT="-nographic -serial mon:stdio -kernel ./build/linux/arch/x86/boot/bzImage"
+SERIAL_OUTPUT="-nographic -kernel ./build/linux/arch/x86/boot/bzImage -chardev stdio,id=char0,mux=on,logfile=qemu.log,signal=off -serial chardev:char0 -mon chardev=char0"
 
 DEBUG="-s"
 KERN_OPTIONS=""

@@ -2,8 +2,9 @@
     "configurations": [
         {
             "name": "Linux",
-            "cStandard": "c11",
+            "cStandard": "c89",
             "intelliSenseMode": "gcc-x64",
+            "compilerPath": "",
             "compileCommands": "${workspaceFolder}/compile_commands.json",
             "includePath": [
                 "${workspaceFolder}/build/linux/arch/x86/include/generated",

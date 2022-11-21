@@ -1,6 +1,6 @@
 [submodule "linux"]
 	path = linux
-	url = https://github.com/torvalds/linux
+	url = git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
 [submodule "busybox"]
 	path = busybox
 	url = https://github.com/mirror/busybox.git

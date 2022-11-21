@@ -3,7 +3,8 @@
 # sudo yum install libguestfs-tools libguestfs guestfs-tools nbdfuse qemu-utils -y
 
 rm -f no-name-linux.qcow2
-qemu-img create -f qcow2 no-name-linux.qcow2 16G
+qemu-img create -f qcow2 no-name-linux.qcow2 512M
+qemu-img create -f qcow2 snapshots.qcow2 32G
 
 sudo rm -rf mnt-no-name-linux
 sudo mkdir -p mnt-no-name-linux/{efi,root}

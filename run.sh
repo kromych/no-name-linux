@@ -34,6 +34,9 @@ qemu-system-x86_64 \
     -machine type=q35,accel=kvm \
     -smp 8 \
     -m 1G \
+    -drive if=none,format=qcow2,file=snapshots.qcow2 \
     -drive if=pflash,format=raw,readonly=on,file=/usr/share/OVMF/OVMF_CODE.fd \
     -drive if=pflash,format=raw,file=OVMF_VARS.fd,snapshot=on \
     -drive format=qcow2,file=no-name-linux.qcow2,snapshot=on \
+#	  -loadvm save03 \
+#   -snapshot \

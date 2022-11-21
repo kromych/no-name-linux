@@ -4,6 +4,3 @@
 [submodule "busybox"]
 	path = busybox
 	url = https://github.com/mirror/busybox.git
-[submodule "dropbear"]
-	path = dropbear
-	url = https://github.com/mkj/dropbear.git

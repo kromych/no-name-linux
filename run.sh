@@ -3,7 +3,7 @@
 WAIT_DEBUG="-S -s"
 
 GTK_OUTPUT="-vga std -display gtk"
-SERIAL_KERN_OPTIONS="console=ttyS0 root=/dev/sda2 init=/sbin/init noinitrd nokaslr vt.handoff=1 oops=panic panic_on_warn=1 panic=-1 ftrace_dump_on_oops=orig_cpu debug earlyprintk=serial slub_debug=UZ"
+SERIAL_KERN_OPTIONS="console=ttyS0"
 #SERIAL_OUTPUT="-nographic -serial mon:stdio -kernel ./build/linux/arch/x86/boot/bzImage"
 SERIAL_OUTPUT="-nographic -chardev stdio,id=char0,mux=on,logfile=serial.log,signal=off \
   -serial chardev:char0 -mon chardev=char0 -kernel ./build/linux/arch/x86/boot/bzImage"
@@ -37,6 +37,8 @@ qemu-system-x86_64 \
     -drive if=none,format=qcow2,file=snapshots.qcow2 \
     -drive if=pflash,format=raw,readonly=on,file=/usr/share/OVMF/OVMF_CODE.fd \
     -drive if=pflash,format=raw,file=OVMF_VARS.fd,snapshot=on \
-    -drive format=qcow2,file=no-name-linux.qcow2,snapshot=on \
+    -device virtio-scsi-pci,id=scsi0 \
+    -device scsi-hd,drive=drive0,bus=scsi0.0,channel=0,scsi-id=0,lun=0 \
+    -drive format=qcow2,file=no-name-linux.qcow2,if=none,id=drive0,snapshot=on \
 #	  -loadvm save03 \
 #   -snapshot \

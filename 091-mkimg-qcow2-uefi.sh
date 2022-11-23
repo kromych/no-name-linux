@@ -27,9 +27,12 @@ sudo mount /dev/nbd0p1 mnt-no-name-linux/efi
 sudo mount /dev/nbd0p2 mnt-no-name-linux/root
 
 sudo mkdir -p mnt-no-name-linux/efi/efi/boot/
-sudo cp build/linux/arch/x86_64/boot/bzImage mnt-no-name-linux/efi/efi/boot/bootx64.efi
-sudo cp -r build/busybox/_install/* mnt-no-name-linux/root
+sudo cp -v build/linux/arch/x86_64/boot/bzImage mnt-no-name-linux/efi/efi/boot/bootx64.efi
+sudo cp -rv build/busybox/_install/* mnt-no-name-linux/root
 sudo strip mnt-no-name-linux/root/bin/busybox
+
+# add optional binaries
+sudo cp -rv ./bin/* mnt-no-name-linux/root/bin
 
 sudo umount /dev/nbd0p1
 sudo umount /dev/nbd0p2

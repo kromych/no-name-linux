@@ -15,3 +15,11 @@ Module.symvers
 *.mod.o
 *.o
 modules.order
+bin
+artifacts
+*.qcow2
+*.vmdk
+*.vhdx
+*.fd
+*.log
+*.config.old

@@ -6,7 +6,7 @@
 
 LINUX_SRC=${PWD}/linux
 
-export KBUILD_OUTPUT=${PWD}/build/linux
+export KBUILD_OUTPUT=${PWD}/build/linux-arm64
 export KCONFIG_CONFIG=${PWD}/config-arm64
 
 cd $LINUX_SRC

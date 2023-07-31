@@ -8,7 +8,7 @@ ROOTFS=${PWD}/rootfs-arm64
 BUSYBOX_SRC=${PWD}/busybox
 BUSYBOX_CONFIG=${PWD}/busybox.config
 
-KERNEL=${PWD}/build/linux/arch/arm64/boot/Image
+KERNEL=${PWD}/build/linux-arm64/arch/arm64/boot/Image
 
 export KBUILD_OUTPUT=${PWD}/build/busybox-arm64
 

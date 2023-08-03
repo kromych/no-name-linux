@@ -4,11 +4,9 @@
 # 2.1. BUILD BUSYBOX
 ######################################################
 
-ROOTFS=${PWD}/rootfs-arm64
 BUSYBOX_SRC=${PWD}/busybox
 BUSYBOX_CONFIG=${PWD}/busybox.config
-
-KERNEL=${PWD}/build/linux-arm64/arch/arm64/boot/Image
+INITRAMFS=${PWD}/build/initramfs-arm64.cpio.gz
 
 export KBUILD_OUTPUT=${PWD}/build/busybox-arm64
 
@@ -40,8 +38,6 @@ mkdir sys
 mkdir tmp
 mkdir -p var/run
 chmod 1777 tmp
-
-cp ${KERNEL} .
 
 cat > etc/bootscript.sh << EOF
 #!/bin/sh
@@ -84,9 +80,4 @@ tty4::once:cat /etc/welcome.txt
 tty4::respawn:/bin/sh
 EOF
 
-# Copy to the target dir
-
-rm -rf ${ROOTFS}
-mkdir ${ROOTFS}
-
-cp -r ./* ${ROOTFS}
+find . | cpio -o -H newc | gzip > ${INITRAMFS}

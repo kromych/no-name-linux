@@ -3,6 +3,11 @@ rootfs*
 *.img
 *.bz2
 build
+*.efi
+*.cpio.gz
+*.dtb
+*.dts
+config-*.old
 
 *.ko.cmd
 *.mod.cmd

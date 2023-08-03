@@ -18,3 +18,4 @@ mkdir -p $KBUILD_OUTPUT
 echo "Building kernel..."
 
 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- make -j 16
+cp $KBUILD_OUTPUT/arch/arm64/boot/Image ../bootaa64.efi

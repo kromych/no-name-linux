@@ -4,6 +4,8 @@
 # 2.1. BUILD BUSYBOX
 ######################################################
 
+NUM_JOBS=16
+
 BUSYBOX_SRC=${PWD}/busybox
 BUSYBOX_CONFIG=${PWD}/busybox.config
 INITRAMFS=${PWD}/build/initramfs-arm64.cpio.gz
@@ -16,12 +18,32 @@ make mrproper
 rm -rf $KBUILD_OUTPUT
 mkdir -p $KBUILD_OUTPUT
 
-ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- make defconfig
+HOST_ARCH=$(uname -m)
+
+# Check if a target architecture is provided as an argument
+TARGET_ARCH=${1:-$HOST_ARCH}
+
+if [ "$HOST_ARCH" != "$TARGET_ARCH" ]; then
+    CROSS_COMPILE=${TARGET_ARCH}-linux-gnu-
+fi
+
+case "$TARGET_ARCH" in
+    "aarch64")
+        KTARGET_ARCH=arm64
+        ;;
+    "x86_64")
+        KTARGET_ARCH=x86_64
+        ;;
+    *)
+        echo "Unsupported target architecture for cross-compilation"
+        exit 1
+        ;;
+esac
 
 cp $BUSYBOX_CONFIG $KBUILD_OUTPUT/.config
 
-ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- make -j 16
-ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- make install
+ARCH=$KTARGET_ARCH CROSS_COMPILE=$CROSS_COMPILE make -j $NUM_JOBS
+ARCH=$KTARGET_ARCH CROSS_COMPILE=$CROSS_COMPILE make -j $NUM_JOBS install
 
 #####################################################
 # 2.2. GENERATE ROOT FILESYSTEM

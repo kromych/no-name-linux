@@ -65,6 +65,10 @@ mount -t devtmpfs none /dev
 mount -t proc none /proc
 mount -t sysfs none /sys
 mount -o remount,rw /dev/root
+sysctl -w kernel.core_pattern=core.%e.%p
+sysctl -w kernel.core_pipe_limit=1
+ulimit -c unlimited
+ulimit -a
 EOF
 chmod +x etc/bootscript.sh
 
